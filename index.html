@@ -70,23 +70,23 @@
 	 */
 	var cnvTo = [
 		/*  1 */ ["Billing Country", 	"Landekode",        "+DK"],
-		/*  2 */ ["", 					"Tomt felt",        ""],
-		/*  3 */ ["",					"Hastigheds-ID",    "P19DK"],
-		/*  4 */ ["", 					"Afsendelsesdato",  "@date"],
-		/*  5 */ ["Name",				"Ordrenr.",         ""],
-		/*  6 */ ["", 					"Modtager ID",      ""],
-		/*  7 */ ["Shipping Name",		"Navnelinie 1",     ""],
-		/*  8 */ ["", 					"Navnelinie 2",     ""],
-		/*  9 */ ["", 					"Att. Person",      ""],
+		/*  2 */ ["", 			"Tomt felt",        ""],
+		/*  3 */ ["",			"Hastigheds-ID",    "P19DK"],
+		/*  4 */ ["", 			"Afsendelsesdato",  "@date"],
+		/*  5 */ ["Name",		"Ordrenr.",         ""],
+		/*  6 */ ["", 			"Modtager ID",      ""],
+		/*  7 */ ["Shipping Name",	"Navnelinie 1",     ""],
+		/*  8 */ ["", 			"Navnelinie 2",     ""],
+		/*  9 */ ["", 			"Att. Person",      ""],
 		/* 10 */ ["Shipping Street",	"Adresselinie 1",   ""],
-		/* 11 */ ["",					"Adresselinie 2",   ""],
-		/* 12 */ ["",					"Postboks",         ""],
-		/* 13 */ ["Shipping Zip", 		"Postnr",           ""],
-		/* 14 */ ["Shipping City",		"Bynavn",           ""],
-		/* 15 */ ["", 					"Vægt",             ""],
-		/* 16 */ ["",					"Bemærkning",       ""],
-		/* 17 */ ["",					"Email",            ""],
-		/* 18 */ ["",					"Provins_stat",     ""],
+		/* 11 */ ["",			"Adresselinie 2",   ""],
+		/* 12 */ ["",			"Postboks",         ""],
+		/* 13 */ ["Shipping Zip", 	"Postnr",           ""],
+		/* 14 */ ["Shipping City",	"Bynavn",           ""],
+		/* 15 */ ["", 			"Vægt",             ""],
+		/* 16 */ ["",			"Bemærkning",       ""],
+		/* 17 */ ["",			"Email",            ""],
+		/* 18 */ ["",			"Provins_stat",     ""],
 		/* 19 */ ["",                   "Tlfnr",            ""],
 		/* 20 */ ["",                   "Reference",        ""],
 		/* 21 */ ["",                   "Tomt felt",        ""],
@@ -98,9 +98,9 @@
 		/* 27 */ ["",                   "Tomt felt",        ""],
 		/* 28 */ ["",                   "Kollinr",          "1"],
 		/* 29 */ ["",                   "Maxkollinr",       "1"],
-		/* 30 */ ["Email",              "Tillægsydelser",	"DLV?81:"],
-		/* 31 */ ["",                   "Modtagertype",		"P"],
-		/* 32 */ ["",                   "CVR nr.",		    ""],
+		/* 30 */ ["Email",              "Tillægsydelser",   "DLV?81:"],
+		/* 31 */ ["",                   "Modtagertype",	    "P"],
+		/* 32 */ ["",                   "CVR nr.",          ""],
 		/* 33 */ ["",                   "SE nr.",           ""]
 	];
 
@@ -118,10 +118,10 @@
 		return '' + num;
 	}
 
-    /**
-     * display content using a basic HTML replacement
-     */
-    function displayContents(txt) {
+    	/**
+    	 * display content using a basic HTML replacement
+    	 */
+    	function displayContents(txt) {
 		var first = txt.split("\n");
 
 		// Convert header
@@ -157,7 +157,7 @@
 			}
 		}
 
-     	var data = $.csv.toArrays(next);
+     		var data = $.csv.toArrays(next);
 		var html = '';
 
 		// rm dups
