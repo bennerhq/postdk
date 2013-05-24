@@ -231,8 +231,7 @@
 
 		var bb = new BlobBuilder();
 		bb.append(buffer);
-		var blob = bb.getBlob('example/binary');
-		saveAs(blob, filename);
+		saveAs(bb.getBlob('application/octet-stream'), filename);
 	}
 </script>
 </head>
