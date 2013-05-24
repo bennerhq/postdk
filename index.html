@@ -5,8 +5,10 @@
 
 	<meta charset='utf-8'> 
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	<script src="http://jquery-csv.googlecode.com/git/src/jquery.csv.js"></script>
+	<script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script language="javascript" type="text/javascript" src="http://jquery-csv.googlecode.com/git/src/jquery.csv.js"></script>
+	<script language="javascript" type="text/javascript" src="https://raw.github.com/eligrey/Blob.js/master/BlobBuilder.min.js"></script>
+	<script language="javascript" type="text/javascript" src="https://raw.github.com/eligrey/FileSaver.js/master/FileSaver.min.js"></script>
 
 	<script type="text/javascript">
 	var reader; //GLOBAL File Reader object for demo purpose only
@@ -58,6 +60,7 @@
 		/*  5 */ ["Name",               "Ordrenr.",         ""],
 		/*  6 */ ["",                   "Modtager ID",      ""],
 		/*  7 */ ["Shipping Name",      "Navnelinie 1",     ""],
+        /*  - */ ["Shipping Company",   "Navnelinie 1",     ""],
 		/*  8 */ ["",                   "Navnelinie 2",     ""],
 		/*  9 */ ["",                   "Att. Person",      ""],
 		/* 10 */ ["Shipping Street",    "Adresselinie 1",   ""],
@@ -119,6 +122,9 @@
 						break;
 					}
 				}
+				if (idx == -1) {
+					console.log("ERROR: '"+id+"' not found!");
+				}
 			}
 			hdr_to.push(idx);
 		}
@@ -162,10 +168,8 @@
 			}
 			last = data[i][0];
 
+			var last_to = -1;
 			for (var j=0; j < hdr_to.length; j++) {
-				if (j>0) {
-					html += ';';
-				}	
 				var idx = hdr_to[j];
 				var str = cnvTo[j][2];
 				if (idx == -1) {
@@ -193,12 +197,36 @@
 						str = '"' + str + '"';
 					}
 				}
+				if (j>0) {
+					if (cnvTo[j][1] != last_to) {
+						html += ';';
+					} else if (str != '') {
+						html += ',';
+					}
+					last_to = cnvTo[j][1];
+				}
 				html += str;
 			}
 			html += '\n';
 		}
 		$('#main').val(html);
-	}   
+
+		var today = new Date();
+
+		var filename = 'orders-' + 
+					   addZero(today.getFullYear()) + '-' +
+					   addZero(today.getMonth()) + '-' +
+					   addZero(today.getDay()) + '--' +
+					   addZero(today.getHours()) + '-' +
+					   addZero(today.getMinutes()) +
+					   '.csv';
+
+		var bb = new BlobBuilder();
+		bb.append(html);
+
+		var blob = bb.getBlob("text/plain;charset=" + document.characterSet);
+		saveAs(blob, filename);;
+	}
 </script>
 </head>
 
