@@ -10,6 +10,9 @@
 	<script language="javascript" type="text/javascript" src="https://raw.github.com/eligrey/Blob.js/master/BlobBuilder.min.js"></script>
 	<script language="javascript" type="text/javascript" src="https://raw.github.com/eligrey/FileSaver.js/master/FileSaver.min.js"></script>
 
+        <script language="javascript" type="text/javascript" src="https://raw.github.com/asutherland/stringencoding/master/encoding-indexes.js"></script>
+        <script language="javascript" type="text/javascript" src="https://raw.github.com/asutherland/stringencoding/master/encoding.js"></script>
+
 	<script type="text/javascript">
 	var reader; //GLOBAL File Reader object for demo purpose only
 
@@ -198,10 +201,10 @@
 					}
 				}
 				if (j>0) {
-					if (cnvTo[j][1] != last_to) {
+					if (idx == -1 || cnvTo[j][1] != last_to) {
 						html += ';';
 					} else if (str != '') {
-						html += ',';
+						html += ' / ';
 					}
 					last_to = cnvTo[j][1];
 				}
@@ -212,20 +215,24 @@
 		$('#main').val(html);
 
 		var today = new Date();
-
-		var filename = 'orders-' + 
-					   addZero(today.getFullYear()) + '-' +
+		var filename = 'orders-' + addZero(today.getFullYear()) + '-' +
 					   addZero(today.getMonth()) + '-' +
 					   addZero(today.getDay()) + '--' +
 					   addZero(today.getHours()) + '-' +
 					   addZero(today.getMinutes()) +
 					   '.csv';
 
-		var bb = new BlobBuilder();
-		bb.append(html);
+		var uint8array = TextEncoder('windows-1252').encode(html); // iso-8859-1
+		var buffer = new ArrayBuffer(uint8array.length);
+		var data = new DataView(buffer);
+		for (var j=0; j < uint8array.length; j++) {
+			data.setUint8(j, uint8array[j]);
+		} 
 
-		var blob = bb.getBlob("text/plain;charset=" + document.characterSet);
-		saveAs(blob, filename);;
+		var bb = new BlobBuilder();
+		bb.append(buffer);
+		var blob = bb.getBlob('example/binary');
+		saveAs(blob, filename);
 	}
 </script>
 </head>
